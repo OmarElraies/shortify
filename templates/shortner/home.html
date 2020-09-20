@@ -1,0 +1,45 @@
+{% extends "shortner/base.html" %}
+
+{% block title %}HELLO{% endblock %}
+
+{% block content %}
+
+
+<div class="p-3 my-3 bg-dark text-white">
+<div class="container ">
+  <form method="post" class="form-inline my-2 my-lg-0">
+  	{% csrf_token %}
+	<input name="long_url" class="form-control mr-sm-4 col-lg-8" type="text" placeholder="Shorten your link" >
+	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Shorten</button>
+    <p class="text-under">By clicking SHORTEN, you are agreeing to Bitly’s Terms of Service and Privacy Policy</p>
+  </form>
+
+    {% if url %}
+		<div class="card text-center">
+		  <div class="card-header text-dark">
+		    Congratulation
+		  </div>
+		  <div class="card-body">
+		    <h5 class="card-title text-dark">{{url.shortened_url}}</h5>
+		    <a href="#" class="btn btn-primary">Copy</a>
+		  </div>
+		  <div class="card-footer text-muted">
+		    count 0
+		  </div>
+		</div>
+
+    {% endif  %}
+</div>
+</div>
+
+<h1>{{ section.title }}</h1>
+
+{% for story in story_list %}
+<h2>
+  <a href="{{ story.get_absolute_url }}">
+    {{ story.headline|upper }}
+  </a>
+</h2>
+<p>{{ story.tease|truncatewords:"100" }}</p>
+{% endfor %}
+{% endblock %}
